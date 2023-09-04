@@ -143,7 +143,6 @@ return packer.startup(function(use)
 	-- use({ "xiyaowong/nvim-cursorword"})
 	use({ "yamatsum/nvim-cursorline" })
 
-	-- use({ "andweeb/presence.nvim" })
 	use({ "nvim-telescope/telescope-file-browser.nvim", commit = "00a814a891de086ed446151bacc559c63682b6ee" })
 	-- use({"nvim-telescope/telescope-media-files.nvim"})
 	use({ "LinArcX/telescope-env.nvim" })

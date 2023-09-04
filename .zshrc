@@ -154,15 +154,6 @@ alias ll='ls -l'
 alias la='ls -la'
 alias l='ls -lah'
 
-alias e4="cd /run/media/leyo/DATA/ESIEE\ Paris/E4/"
-alias web="cd /run/media/leyo/DATA/Dev/Web/"
-alias thm="cd /run/media/leyo/DATA/Cyber/Platforms/THM"
-alias rootme="cd /run/media/leyo/DATA/Cyber/Platforms/RootMe"
-alias aoc="cd /run/media/leyo/DATA/Dev/Autre/adventOfCode/2022"
-alias dotfiles="cd ~/.dotfiles/"
-
-alias carbyn="cd ~/Documents/doxxeur/carbyn/"
-alias doxxeur="cd ~/Documents/doxxeur/"
 
 alias docker-compose="docker compose"
 alias npm="pnpm"
@@ -173,7 +164,18 @@ alias up="docker compose up"
 alias run="docker compose run"
 alias n="nvim"
 
-alias surfshark="sudo surfshark-vpn"
+alias data="cd /run/media/leyo/DATA/"
+alias leyo="cd /run/media/leyo/LEYO/"
+alias netflix="cd /run/media/leyo/DATA/Netflix/"
+
+alias dotfiles="cd ~/.dotfiles/"
+alias dev="cd /run/media/leyo/DATA/Documents/Dev/"
+alias cyber="cd /run/media/leyo/DATA/Documents/Cyber/"
+
+alias carbyn="cd /run/media/leyo/DATA/Documents/Dev/doxxeur/carbyn"
+alias doxxeur="cd /run/media/leyo/DATA/Documents/Dev/doxxeur/"
+
+alias gitui="gitui -t mocha.ron"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

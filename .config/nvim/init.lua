@@ -29,7 +29,6 @@ require("leyo.nvim-colorizer")
 require("leyo.tokyonight")
 require("leyo.keymaps")
 require("leyo.onedark")
--- require("leyo.presence")
 require("leyo.cursorline")
 
 -- colorscheme
