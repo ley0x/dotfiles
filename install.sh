@@ -1,45 +1,28 @@
 #!/bin/bash
 
-# NVIM
-# rm -rf ~/.config/nvim && ln -s ~/.dotfiles/nvim ~/.config/
-# mv ~/.config/nvim ~/.config/nvim.bak && ln -s ~/.dotfiles/nvim ~/.config/
+function create_symlink() {
+  symlink_path=$1
+  dotfiles_path=$2
 
-path="/home/$USER/.config/nvim"
-if [ -e $path ]; then
-	mv $path "$path.bak"
-else
-	echo "Backup not created because file or folder $path doesn't exists"
-fi
-ln -s $PWD/nvim $path
+  if [ -e $symlink_path ]; then
+    mv $symlink_path "$symlink_path.bak"
+  else
+    echo "Backup not created because file or folder $symlink_path doesn't exists"
+  fi
+  ln -s $dotfiles_path $symlink_path 
+}
 
-# ZSH
-# rm -f ~/.zshrc && ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
-#mv ~/.zshrc ~/.zshrc.bak && ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
-path="/home/$USER/.zshrc"
-if [ -e $path ]; then
-	mv $path "$path.bak"
-else
-	echo "Backup not created because file or folder $path doesn't exists"
-fi
-ln -s $PWD/zsh/.zshrc $path
+create_symlink "/home/$USER/.config/alacritty" "$PWD/.config/alacritty"
+create_symlink "/home/$USER/.config/btop" "$PWD/.config/btop"
+create_symlink "/home/$USER/.config/gitui" "$PWD/.config/gitui"
+create_symlink "/home/$USER/.config/i3" "$PWD/.config/i3/"
+create_symlink "/home/$USER/.config/neofetch" "$PWD/.config/neofetch"
+create_symlink "/home/$USER/.config/nvim" "$PWD/.config/nvim"
+create_symlink "/home/$USER/.config/polybar" "$PWD/.config/polybar"
+create_symlink "/home/$USER/.config/ranger" "$PWD/.config/ranger"
+create_symlink "/home/$USER/.config/rofi" "$PWD/.config/rofi"
 
-# Alacritty
-#rm -f ~/.config/alacritty/alacritty.yml && ln -s ~/.dotfiles/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
-#mv ~/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml.bak && ln -s ~/.dotfiles/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
 
-path="/home/$USER/.config/alacritty/alacritty.yml"
-if [ -e $path ]; then
-	mv $path "$path.bak"
-else
-	echo "Backup not created because file or folder $path doesn't exists"
-fi
-ln -s $PWD/alacritty/alacritty.yml $path
-
-# TMUX
-path="/home/$USER/.tmux.conf"
-if [ -e $path ]; then
-	mv "$path" "$path.bak"
-else
-	echo "Backup not created because file or folder $path doesn't exists"
-fi
-ln -s $PWD/tmux/.tmux.conf $path
+create_symlink "/home/$USER/.zshrc" "$PWD/.zshrc"
+create_symlink "/home/$USER/.tmux.conf" "$PWD/.tmux.conf"
+create_symlink "/home/$USER/.tmux.conf" "$PWD/.tmux.conf"

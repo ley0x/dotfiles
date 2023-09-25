@@ -13,3 +13,19 @@
 2023/04/11 (21:47:46) | ===> btop++ v.1.2.13
 2023/04/11 (21:47:46) | INFO: Logger set to INFO
 2023/04/11 (21:47:47) | INFO: Logger set to DEBUG
+
+2023/09/11 (13:31:36) | ===> btop++ v.1.2.13
+2023/09/11 (13:31:39) | ERROR: Stall in Runner thread, restarting!
+2023/09/11 (13:31:55) | ERROR: Stall in Runner thread, restarting!
+
+2023/09/13 (12:11:10) | ===> btop++ v.1.2.13
+2023/09/13 (12:11:10) | ERROR: Stall in Runner thread, restarting!
+
+2023/09/14 (22:28:33) | ===> btop++ v.1.2.13
+2023/09/14 (22:28:33) | ERROR: Stall in Runner thread, restarting!
+
+2023/09/24 (19:15:05) | ===> btop++ v.1.2.13
+2023/09/24 (19:15:06) | ERROR: Stall in Runner thread, restarting!
+2023/09/24 (19:15:47) | ERROR: Stall in Runner thread, restarting!
+2023/09/24 (19:16:26) | ERROR: Stall in Runner thread, restarting!
+2023/09/24 (20:49:50) | ERROR: Stall in Runner thread, restarting!

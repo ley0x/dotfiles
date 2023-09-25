@@ -38,6 +38,7 @@ require("user.bufferline")
 -- colorscheme
 require("user.colorscheme")
 require("user.bufferline")
+require("leyo.devicons")
 
 local status, nvim_lsp = pcall(require, "lspconfig")
 if not status then
