@@ -78,6 +78,7 @@ alias doxxeur="cd ~/Documents/Dev/doxxeur/"
 alias gitui="gitui -t mocha.ron"
 
 alias u="sudo pacman -Syy && yay -S archlinux-keyring && yay && yay -Sc && sudo pacman -Rns $(pacman -Qdtq)"
+alias wroclaw="cd /home/leyo/Documents/ESIEE/E5/Erasmus/University"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
