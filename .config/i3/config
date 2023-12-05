@@ -2,7 +2,7 @@ set $mod Mod4
 
 # gaps
 for_window [class=".*"] border pixel 0
-gaps inner 12
+gaps inner 6
 gaps outer 6
 smart_borders on
 
@@ -17,7 +17,7 @@ exec --no-startup-id dunst -config "/home/$USER/.config/dunst/dunstrc"
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex-autostart --autostart --environment i3
+exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id nm-applet
 
 # workspace 1 output HDMI-1-0
@@ -31,9 +31,9 @@ bindsym $mod+Ctrl+s exec "/home/$USER/.config/i3/scripts/lock.sh && systemctl su
 bindsym $mod+Ctrl+l exec "/home/$USER/.config/i3/scripts/lock.sh"
 
 # screenshots
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/Screenshots/$(date).png"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/Screenshots/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/Screenshots/$(date)"
 
 # volume
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1%

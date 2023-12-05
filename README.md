@@ -9,6 +9,21 @@ This repository contains dotfiles for :
 - alacritty
 - firefox (librewolf)
 
+- ranger
+- neofetch
+- polybar
+- rofi
+- nitrogen
+- picom
+- dunst
+- xautolock
+- maim
+- xdotool
+- nm-applet
+- dex
+- feh
+- playerctl
+
 ```bash
 apt install -y neovim zsh tmux xsel
 ```

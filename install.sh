@@ -26,3 +26,5 @@ create_symlink "/home/$USER/.config/rofi" "$PWD/.config/rofi"
 create_symlink "/home/$USER/.zshrc" "$PWD/.zshrc"
 create_symlink "/home/$USER/.tmux.conf" "$PWD/.tmux.conf"
 create_symlink "/home/$USER/.tmux.conf" "$PWD/.tmux.conf"
+
+create_symlink "/home/$USER/.profile" "$PWD/.profile"

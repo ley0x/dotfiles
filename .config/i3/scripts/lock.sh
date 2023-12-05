@@ -10,15 +10,12 @@ VERIFYING='#83eaa9'
 i3lock \
 --insidever-color=$CLEAR     \
 --ringver-color=$VERIFYING   \
-\
 --insidewrong-color=$CLEAR   \
 --ringwrong-color=$WRONG     \
-\
 --inside-color=$BLANK        \
 --ring-color=$DEFAULT        \
 --line-color=$BLANK          \
 --separator-color=$DEFAULT   \
-\
 --verif-color=$TEXT          \
 --wrong-color=$TEXT          \
 --time-color=$TEXT           \
@@ -26,10 +23,9 @@ i3lock \
 --layout-color=$TEXT         \
 --keyhl-color=$WRONG         \
 --bshl-color=$WRONG          \
-\
 --screen 1                   \
 --blur 7                     \
 --clock                      \
 --indicator                  \
 --time-str="%H:%M:%S"        \
---date-str="%d-%m-%Y"        \
+--date-str="%d-%m-%Y"
