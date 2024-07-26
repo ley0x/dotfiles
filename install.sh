@@ -15,12 +15,13 @@ function create_symlink() {
 create_symlink "/home/$USER/.config/alacritty" "$PWD/.config/alacritty"
 create_symlink "/home/$USER/.config/btop" "$PWD/.config/btop"
 create_symlink "/home/$USER/.config/gitui" "$PWD/.config/gitui"
-create_symlink "/home/$USER/.config/i3" "$PWD/.config/i3/"
 create_symlink "/home/$USER/.config/neofetch" "$PWD/.config/neofetch"
 create_symlink "/home/$USER/.config/nvim" "$PWD/.config/nvim"
-create_symlink "/home/$USER/.config/polybar" "$PWD/.config/polybar"
-create_symlink "/home/$USER/.config/ranger" "$PWD/.config/ranger"
-create_symlink "/home/$USER/.config/rofi" "$PWD/.config/rofi"
+
+# create_symlink "/home/$USER/.config/i3" "$PWD/.config/i3/"
+# create_symlink "/home/$USER/.config/polybar" "$PWD/.config/polybar"
+# create_symlink "/home/$USER/.config/ranger" "$PWD/.config/ranger"
+# create_symlink "/home/$USER/.config/rofi" "$PWD/.config/rofi"
 
 
 create_symlink "/home/$USER/.zshrc" "$PWD/.zshrc"

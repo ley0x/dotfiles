@@ -5,7 +5,7 @@ PARENT_BAR_PID=$(pgrep -a "polybar" | grep "$PARENT_BAR" | cut -d" " -f1)
 
 PLAYER="Deezer"
 
-FORMAT="{{ title }} - {{ artist }}"
+FORMAT="{{ artist }} - {{ title }} ({{ duration(position) }})"
 
 update_hooks() {
     while IFS= read -r id

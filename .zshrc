@@ -1,10 +1,10 @@
 export ZSH="/usr/share/oh-my-zsh"
 
-ZSH_THEME=""
-fpath+=($HOME/.zsh/pure)
+ZSH_THEME="xiong-chiamiov-plus"
 
-autoload -U promptinit; promptinit
-prompt pure
+# fpath+=($HOME/.zsh/pure)
+# autoload -U promptinit; promptinit
+# prompt pure
 
 plugins=(git docker dotenv archlinux zsh-autosuggestions zsh-syntax-highlighting sudo jsontools)
 
@@ -66,19 +66,23 @@ alias n="nvim"
 
 alias data="cd /run/media/leyo/DATA/"
 alias leyo="cd /run/media/leyo/LEYO/"
-alias netflix="cd /run/media/leyo/LEYO/Netflix/"
+alias netflix="cd /run/media/leyo/DATA/netflix/"
 
 alias dotfiles="cd ~/.dotfiles/"
 alias dev="cd ~/Documents/Dev/"
 alias cyber="cd ~/Documents/Cyber/"
 
-alias carbyn="cd ~/Documents/Dev/doxxeur/carbyn"
-alias doxxeur="cd ~/Documents/Dev/doxxeur/"
-
 alias gitui="gitui -t mocha.ron"
 
-alias u="sudo pacman -Syy && yay -S archlinux-keyring && yay && yay -Sc && sudo pacman -Rns $(pacman -Qdtq)"
-alias wroclaw="cd /home/leyo/Documents/ESIEE/E5/Erasmus/University"
+# Alias updates
+alias update-arch='yay && flatpak update'
+alias clean-arch='yay -Sc && yay -Yc && flatpak remove --unused'
+alias update-mirrors='sudo reflector --verbose --score 100 --latest 20 --fastest 5 --sort rate --save /etc/pacman.d/mirrorlist '
+alias fix-key='sudo rm /var/lib/pacman/sync/* && sudo rm -rf /etc/pacman.d/gnupg/* && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman -Sy --noconfirm archlinux-keyring && sudo pacman --noconfirm -Su'
+alias arch-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
+
+alias mechvibes='mechvibes --in-process-gpu'
+alias venv='source /opt/venv/bin/activate'
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -97,8 +101,6 @@ export NVM_DIR="$HOME/.nvm"
 export FLYCTL_INSTALL="/home/leyo/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
-export THM_HOST="10.11.3.99"
-
 export PATH="$PATH:$HOME/bin"
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -110,3 +112,8 @@ case ":$PATH:" in
 esac
 # pnpm end
 #
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+if [ -e "/opt/venv" ]; then
+  source /opt/venv/bin/activate
+fi
