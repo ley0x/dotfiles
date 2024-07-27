@@ -2,6 +2,7 @@ export ZSH="/usr/share/oh-my-zsh"
 
 ZSH_THEME="xiong-chiamiov-plus"
 
+
 # fpath+=($HOME/.zsh/pure)
 # autoload -U promptinit; promptinit
 # prompt pure
@@ -72,7 +73,7 @@ alias dotfiles="cd ~/.dotfiles/"
 alias dev="cd ~/Documents/Dev/"
 alias cyber="cd ~/Documents/Cyber/"
 
-alias gitui="gitui -t mocha.ron"
+alias gitui="gitui -t ~/.config/gitui/latte.ron"
 
 # Alias updates
 alias update-arch='yay && flatpak update'
@@ -83,6 +84,9 @@ alias arch-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
 
 alias mechvibes='mechvibes --in-process-gpu'
 alias venv='source /opt/venv/bin/activate'
+
+# exegol
+alias workspace='cd ~/.exegol/workspaces/'
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

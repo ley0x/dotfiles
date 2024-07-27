@@ -3,7 +3,7 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 --
-
+--
 lvim.plugins = {
   {
     "windwp/nvim-ts-autotag",
@@ -17,7 +17,6 @@ lvim.plugins = {
   },
   {
     "themaxmarchuk/tailwindcss-colors.nvim",
-    module = "tailwindcss-colors",
     config = function()
       require("tailwindcss-colors").setup()
     end,
@@ -27,7 +26,27 @@ lvim.plugins = {
     config = function()
       require("colorizer").setup()
     end,
-  }
+  },
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({
+      keymaps = {
+        accept_suggestion = "<Tab>",
+        clear_suggestion = "<C-$>",
+        accept_word = "<C-j>",
+      },
+      ignore_filetypes = { cpp = true },
+      color = {
+        suggestion_color = "#ffffff",
+        cterm = 244,
+      },
+      log_level = "info", -- set to "off" to disable logging completely
+      disable_inline_completion = false, -- disables inline completion for use with cmp
+      disable_keymaps = false -- disables built in keymaps for more manual control
+          })
+        end,
+      }
 }
 
 lvim.builtin.terminal.open_mapping = "<c-t>"
