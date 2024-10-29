@@ -3,11 +3,19 @@ export ZSH="/usr/share/oh-my-zsh"
 ZSH_THEME="xiong-chiamiov-plus"
 
 
+# Uncomment the following line if pasting URLs and other text is messed up.
+DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
 # fpath+=($HOME/.zsh/pure)
 # autoload -U promptinit; promptinit
 # prompt pure
 
-plugins=(git docker dotenv archlinux zsh-autosuggestions zsh-syntax-highlighting sudo jsontools)
+plugins=(zsh-bat git fzf docker dotenv archlinux zsh-autosuggestions zsh-syntax-highlighting sudo jsontools)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -68,6 +76,8 @@ alias n="nvim"
 alias data="cd /run/media/leyo/DATA/"
 alias leyo="cd /run/media/leyo/LEYO/"
 alias netflix="cd /run/media/leyo/DATA/netflix/"
+alias homelab="cd ~/Documents/homelab/"
+alias sysreptor="cd ~/Documents/sysreptor/sysreptor/deploy/"
 
 alias dotfiles="cd ~/.dotfiles/"
 alias dev="cd ~/Documents/Dev/"
@@ -82,11 +92,16 @@ alias update-mirrors='sudo reflector --verbose --score 100 --latest 20 --fastest
 alias fix-key='sudo rm /var/lib/pacman/sync/* && sudo rm -rf /etc/pacman.d/gnupg/* && sudo pacman-key --init && sudo pacman-key --populate && sudo pacman -Sy --noconfirm archlinux-keyring && sudo pacman --noconfirm -Su'
 alias arch-autoremove='sudo pacman -Rns $(pacman -Qtdq)'
 
-alias mechvibes='mechvibes --in-process-gpu'
+alias mechvibes='mechvibes --in-process-gpu &> /dev/null &'
 alias venv='source /opt/venv/bin/activate'
 
 # exegol
 alias workspace='cd ~/.exegol/workspaces/'
+
+#Displaying iptables information the easy way :)
+alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers' #this will display all lines of your current iptables
+alias iptlistin='sudo /sbin/iptables -L INPUT -n -v --line-numbers' #this will display all your INCOMING rules in iptables
+alias iptlistout='sudo /sbin/iptables -L OUTPUT -n -v --line-numbers' #this will display all your OUTGOING rules in iptables
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -121,3 +136,19 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 if [ -e "/opt/venv" ]; then
   source /opt/venv/bin/activate
 fi
+
+# Fish-like syntax highlighting and autosuggestions
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Use history substring search
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# pkgfile "command not found" handler
+source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export FZF_BASE=/usr/share/fzf
+

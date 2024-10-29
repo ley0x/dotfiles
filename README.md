@@ -1,16 +1,24 @@
-# Dotfiles
+# Dotfiles (ley0x)
 
 ## Content
 
-This repository contains dotfiles for :
-- nvim
-- zsh
-- tmux
-- alacritty
-- firefox (librewolf)
+### General
 
+This repository contains dotfiles for :
+- alacritty
+- zsh (oh-my-zsh)
+- tmux
+- nvim & lvim
 - ranger
-- neofetch
+
+```bash
+apt install -y neovim zsh tmux xsel 
+sudo pacman -S wl-clipboard # si on utilise le clipboard de wayland
+sudo pacman -S xclip # sinon
+```
+
+### i3wm 
+
 - polybar
 - rofi
 - nitrogen
@@ -25,10 +33,6 @@ This repository contains dotfiles for :
 - playerctl
 
 ```bash
-apt install -y neovim zsh tmux xsel
-```
-
-```bash
 cargo install alacritty
 ```
 
@@ -36,12 +40,10 @@ cargo install alacritty
 
 ### ZSH
 
-Install ohmyzsh
+- Install ohmyzsh
 ```bash
 /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
-### ZSH plugins
-
 - ZSH Syntax Highlighting :
 ```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -52,13 +54,12 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 
-- [Pure Theme](https://github.com/sindresorhus/pure) :
+- ZSH bat :
 ```bash
-mkdir -p "$HOME/.zsh"
-git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+git clone https://github.com/fdellwing/zsh-bat.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat
 ```
 
-### Tmux plugins
+### Tmux
 
 Install tmp for tmux plugins
 
@@ -69,10 +70,11 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ### Neovim
 
 ```bash
-sudo pacman -S xsel
 pip install pynvim
 npm i -g neovim
 ```
+
+[LunarVim](https://www.lunarvim.org/)
 
 
 ### Finally setting up dotfiles
@@ -82,5 +84,3 @@ For installing the dotfiles, just execute this commmand in a linux shell :
 ```bash
 chmod +x ./install.sh && ./install.sh
 ```
-
-And that's it !

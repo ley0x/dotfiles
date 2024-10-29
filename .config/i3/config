@@ -10,7 +10,7 @@ font pango:CaskaydiaCove Nerd Font 8
 
 # autostart
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id xrandr --output HDMI-1-0 --auto --right-of eDP-1 
+exec --no-startup-id xrandr --output DP-2 --auto --right-of HDMI-0 
 exec --no-startup-id "/home/$USER/.config/i3/scripts/polybarstart.sh"
 exec --no-startup-id picom
 exec --no-startup-id dunst -config "/home/$USER/.config/dunst/dunstrc"
