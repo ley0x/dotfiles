@@ -75,7 +75,7 @@ alias n="nvim"
 
 alias data="cd /run/media/leyo/DATA/"
 alias leyo="cd /run/media/leyo/LEYO/"
-alias netflix="cd /run/media/leyo/DATA/netflix/"
+alias netflix="cd /opt/netflix/"
 alias homelab="cd ~/Documents/homelab/"
 alias sysreptor="cd ~/Documents/sysreptor/sysreptor/deploy/"
 
