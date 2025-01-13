@@ -1,5 +1,11 @@
 # Dotfiles (ley0x)
 
+## Ansible
+
+```bash
+ansible-galaxy role install -r requirements.yaml -p ./roles
+ansible-galaxy collection install -r collections/requirements.yaml --force
+```
 ## Content
 
 ### General

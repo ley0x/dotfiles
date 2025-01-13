@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for ./roles/alacritty
+# Backup the current config and create a symlink to the alacritty config file
+# This is done to avoid losing the current config when the playbook is run
+- name: Backup the current config
+  ansible.builtin.copy:
+    src: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
+    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml.bak"
+    remote_src: yes
+
+- name: Create a symlink to the alacritty config file
+  ansible.builtin.file:
+    src: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
+    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml.symlink"
+    state: link
+

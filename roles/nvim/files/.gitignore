@@ -1,5 +1,3 @@
-ansible.log
-
 # Compiled Lua sources
 luac.out
 
@@ -43,18 +41,3 @@ luac.out
 
 
 plugin/packer_compiled.lua
-java-debug/
-vscode-java-test/
-
-# All .sqlite files in all directories
-**/*.sqlite3
-**/*.sqlite
-**/*.sqlite-wal
-**/*.sqlite-shm
-**/*.sqlite*
-**/*.db
-**/*.db-wal
-**/*.db-shm
-**/*.db*
-
-firefox/dmm8wymi.librewolf

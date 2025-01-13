@@ -1,0 +1,43 @@
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  collections:
+    - kewlfft.aur
+  vars:
+    linux_distribution: "{{ ansible_distribution | lower }}"
+    linux_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+
+  tasks:
+    - name: Show variables
+      debug:
+        msg: "{{ item }}"
+      loop:
+        - "{{ linux_distribution }}"
+        - "{{ linux_user }}"
+
+    - name: Update the system using pacman -Syuu
+      community.general.pacman:
+        update_cache: yes      # -Sy
+        upgrade: yes           # -u (upgrade all packages)
+        force: yes             # -uu (allow downgrades if needed)
+        noconfirm: yes         # --noconfirm (skip prompts)
+
+
+    - name: Install packages
+      kewlfft.aur.aur:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - alacritty
+        - zsh
+        - tmux
+        - neovim
+        - btop
+        - ctop
+        - ranger
+        - gitui
+        # - rofi
+        # - polybar 
+        # - i3
