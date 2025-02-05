@@ -1,6 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
-
 - name: Install zsh config and aliases
   ansible.builtin.include_tasks: process_file.yaml
   loop: "{{ file_list }}"
