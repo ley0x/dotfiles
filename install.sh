@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 function create_symlink() {
   symlink_path=$1
@@ -13,6 +13,7 @@ function create_symlink() {
   ln -s $dotfiles_path $symlink_path 
 }
 
+create_symlink "/home/$USER/.zsh_aliases" "$PWD/.zsh_aliases"
 # create_symlink "/home/$USER/.config/alacritty" "$PWD/.config/alacritty"
 # create_symlink "/home/$USER/.config/btop" "$PWD/.config/btop"
 # create_symlink "/home/$USER/.config/gitui" "$PWD/.config/gitui"
@@ -26,7 +27,7 @@ function create_symlink() {
 # create_symlink "/home/$USER/.tmux.conf" "$PWD/.tmux.conf"
 
 #create_symlink "/home/$USER/.profile" "$PWD/.profile"
-create_symlink "/home/$USER/.config/i3" "$PWD/.config/i3/"
-create_symlink "/home/$USER/.config/polybar" "$PWD/.config/polybar"
-create_symlink "/home/$USER/.config/ranger" "$PWD/.config/ranger"
-create_symlink "/home/$USER/.config/rofi" "$PWD/.config/rofi"
+# create_symlink "/home/$USER/.config/i3" "$PWD/.config/i3/"
+# create_symlink "/home/$USER/.config/polybar" "$PWD/.config/polybar"
+# create_symlink "/home/$USER/.config/ranger" "$PWD/.config/ranger"
+# create_symlink "/home/$USER/.config/rofi" "$PWD/.config/rofi"

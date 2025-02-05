@@ -4,8 +4,14 @@
 
 ```bash
 ansible-galaxy role install -r requirements.yaml -p ./roles
-ansible-galaxy collection install -r collections/requirements.yaml --force
+ansible-galaxy collection install -r requirements.yaml --force
 ```
+
+- Create an ansible role :
+```bash
+ansible-galaxy init --init-path ./roles <role>
+```
+
 ## Content
 
 ### General
