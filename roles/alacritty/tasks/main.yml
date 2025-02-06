@@ -1,17 +1,12 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# tasks file for ./roles/alacritty
-# Backup the current config and create a symlink to the alacritty config file
-# This is done to avoid losing the current config when the playbook is run
-- name: Backup the current config
-  ansible.builtin.copy:
-    src: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
-    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml.bak"
-    remote_src: yes
-
-- name: Create a symlink to the alacritty config file
+- name: "Create `alacritty` directory if it doesn't exist"
   ansible.builtin.file:
-    src: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
-    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml.symlink"
-    state: link
-
+    path: "{{ linux_home }}/.config/alacritty"
+    state: directory
+    mode: '0755'
+    owner: "{{ linux_user }}"
+    group: "{{ linux_user }}"
+- name: Install tmux config
+  ansible.builtin.include_tasks: process_file.yaml
+  loop: "{{ file_list }}"
