@@ -1,9 +1,4 @@
 ---
-- name: DEBUG
-  debug:
-    msg: 
-    - "Source: {{ item.src }}"
-    - "Destination: {{ item.dest }}"
 - name: Check if symlink path exists
   ansible.builtin.stat:
     path: "{{ item.dest }}"
