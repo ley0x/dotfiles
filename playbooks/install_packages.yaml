@@ -25,6 +25,8 @@
         noconfirm: yes         # --noconfirm (skip prompts)
 
 
+    # installer les packages qui ont pas besoins de dotfiles
+    # eza, batcat, firefox, etc
     - name: Install packages
       kewlfft.aur.aur:
         name: "{{ item }}"

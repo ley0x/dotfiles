@@ -1,0 +1,17 @@
+- name: Install dotfiles
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  roles:
+    - ./roles/zsh
+    - ./roles/tmux
+    - ./roles/alacritty
+    - ./roles/btop
+    - ./roles/gitui
+    - ./roles/i3
+    - ./roles/lvim
+    - ./roles/nvim
+    - ./roles/polybar
+    - ./roles/ranger
+    - ./roles/rofi
