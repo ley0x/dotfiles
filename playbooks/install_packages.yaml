@@ -29,6 +29,8 @@
         - vim
         - xsel
         - wl-clipboard
+        - python
+        - python-pip
         # - xclip
         - git
         - github-cli
