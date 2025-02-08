@@ -8,38 +8,68 @@
   vars:
     linux_distribution: "{{ ansible_distribution | lower }}"
     linux_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
-
   tasks:
-    - name: Show variables
-      debug:
-        msg: "{{ item }}"
-      loop:
-        - "{{ linux_distribution }}"
-        - "{{ linux_user }}"
-
-    - name: Update the system using pacman -Syuu
+    - name: "Update the system using pacman -Syuu"
       community.general.pacman:
-        update_cache: yes      # -Sy
-        upgrade: yes           # -u (upgrade all packages)
-        force: yes             # -uu (allow downgrades if needed)
-        noconfirm: yes         # --noconfirm (skip prompts)
-
-
-    # installer les packages qui ont pas besoins de dotfiles
-    # eza, batcat, firefox, etc
-    - name: Install packages
+        update_cache: true      # -Sy
+        upgrade: true           # -u (upgrade all packages)
+        noconfirm: true         # --noconfirm (skip prompts)
+        # force: true           # -uu (allow downgrades if needed)
+    - name: "Install base-devel and git (required for AUR builds)"
+      ansible.builtin.pacman:
+        name:
+          - base-devel
+          - git
+        state: present
+    - name: "Install yay from AUR using git"
+      git:
+        repo: 'https://aur.archlinux.org/yay.git'
+        dest: '/tmp/yay'
+        clone: yes
+        update: yes
+    - name: "Build and install yay"
+      shell: |
+        cd /tmp/yay
+        makepkg -si --noconfirm
+      become: true
+    - name: "Clean up yay build directory"
+      file:
+        path: /tmp/yay
+        state: absent
+    - name: "Install packages"
       kewlfft.aur.aur:
         name: "{{ item }}"
         state: latest
       loop:
-        - alacritty
-        - zsh
-        - tmux
-        - neovim
-        - btop
+        - vim
+        - xsel
+        - wl-clipboard
+        # - xclip
         - ctop
+        - nvtop
+        - eza
+        - bat
+        - vlc
         - ranger
         - gitui
+        - gparted
+        - firefox
+        - firefox-profile-switcher-connector-bin
+        - steam
+        - discord
+        - signal-desktop
+        - deezer-enhanced-bin
+        - deemix-git
+        - vscodium
+        - obsidian
+        - youtube-music
+        - thunderbird
+        - brave-bin
+        - kdenlive
+        - video-downloader
+        - bitwarden
+        - kdeconnect
+        - timeshift
         # - rofi
         # - polybar 
         # - i3

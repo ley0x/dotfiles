@@ -9,9 +9,9 @@
     - ./roles/alacritty
     - ./roles/btop
     - ./roles/gitui
-    - ./roles/i3
     - ./roles/lvim
     - ./roles/nvim
-    - ./roles/polybar
     - ./roles/ranger
-    - ./roles/rofi
+    # - ./roles/i3
+    # - ./roles/polybar
+    # - ./roles/rofi

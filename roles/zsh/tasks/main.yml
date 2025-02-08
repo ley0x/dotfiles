@@ -1,5 +1,19 @@
 #SPDX-License-Identifier: MIT-0
 ---
+- name: Install packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    upgrade: yes
+    use: yay
+  loop:
+    - zsh
+    - oh-my-zsh-git
+    - zsh-completions
+    - zsh-autosuggestions
+    - zsh-history-substring-search
+    - zsh-syntax-highlighting
+    - zsh-theme-powerlevel10k
 - name: Install zsh config and aliases
   ansible.builtin.include_role:
     name: symlink

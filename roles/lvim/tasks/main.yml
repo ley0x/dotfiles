@@ -1,6 +1,28 @@
 #SPDX-License-Identifier: MIT-0
 ---
-- name: Install lvim config
+- name: "Install packages"
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    upgrade: yes
+    use: yay
+  loop:
+    - git
+    - make
+    - nodejs
+    - rust
+    - ripgrep
+    - npm
+    - lazygit
+- name: Install packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    upgrade: yes
+    use: yay
+  loop:
+    - lunarvim-git
+- name: "Install lvim config"
   ansible.builtin.include_role:
     name: symlink
   loop: "{{ file_list }}"

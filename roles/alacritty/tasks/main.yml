@@ -1,5 +1,13 @@
 #SPDX-License-Identifier: MIT-0
 ---
+- name: Install packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    upgrade: yes
+    use: yay
+  loop:
+    - alacritty
 - name: "Create `alacritty` directory if it doesn't exist"
   ansible.builtin.file:
     path: "{{ linux_home }}/.config/alacritty"

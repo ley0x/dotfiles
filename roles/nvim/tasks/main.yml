@@ -1,6 +1,31 @@
 #SPDX-License-Identifier: MIT-0
 ---
+- name: Install packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    upgrade: yes
+    use: yay
+  loop:
+    - neovim
 - name: Install nvim config
   ansible.builtin.include_role:
     name: symlink
   loop: "{{ file_list }}"
+- name: "Node.js"
+  ansible.builtin.shell: |
+    mkdir -p ~/.npm-global/lib
+    npm config set prefix '~/.npm-global' 
+- name: "Install 'pnpm' node.js package globally."
+  community.general.npm:
+    name: pnpm
+    global: true
+- name: Install neovim globally with npm
+  npm:
+    name: neovim
+    global: yes
+    state: present
+- name: Install pynvim with pip
+  pip:
+    name: pynvim
+    state: present

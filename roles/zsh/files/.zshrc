@@ -59,7 +59,8 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # PATH
-export PATH="$HOME/.fly/bin:$HOME/.local/bin:$HOME/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$HOME/.fly/bin:$HOME/.local/bin:$HOME/bin:$PATH"
+
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
