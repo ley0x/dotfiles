@@ -4,8 +4,11 @@
   kewlfft.aur.aur:
     name: "{{ item }}"
     state: latest
-    upgrade: yes
+    #upgrade: yes
+    aur_only: false
+    update_cache: true
     use: yay
+  become: false
   loop:
     - btop
 - name: Install btop config
