@@ -11,7 +11,14 @@ cd dotfiles
 ```
 
 - Install `yay` AUR helper
+```bash
+sudo pacman -S --needed base-devel git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```        
 
+    
 ## Ansible
 
 ```bash
