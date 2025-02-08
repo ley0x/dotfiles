@@ -57,6 +57,10 @@
     - name: "Install AUR packages"
       kewlfft.aur.aur:
         name: "{{ item }}"
+        upgrade: false
+        update_cache: false
+        use: yay
+        aur_only: true
         state: latest
       # can't install AUR packages as root
       become: false
