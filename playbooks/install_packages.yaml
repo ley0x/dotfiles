@@ -30,6 +30,8 @@
         - xsel
         - wl-clipboard
         # - xclip
+        - git
+        - github-cli
         - ctop
         - nvtop
         - eza
@@ -51,6 +53,7 @@
         - bitwarden
         - kdeconnect
         - timeshift
+        - ttf-cascadia-code-nerd
         # - rofi
         # - polybar 
         # - i3

@@ -4,13 +4,13 @@
   connection: local
   gather_facts: true
   roles:
+    - ./roles/alacritty
     - ./roles/zsh
     - ./roles/tmux
-    - ./roles/alacritty
     - ./roles/btop
     - ./roles/gitui
-    - ./roles/lvim
     - ./roles/nvim
+    - ./roles/lvim
     - ./roles/ranger
     # - ./roles/i3
     # - ./roles/polybar
