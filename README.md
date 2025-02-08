@@ -1,5 +1,17 @@
 # Dotfiles (ley0x)
 
+## Prerequisites
+
+- Install Ansible
+```bash
+sudo pacman -S ansible github-cli
+gh auth login
+git clone https://github.com/ley0x/dotfiles.git
+cd dotfiles
+```
+
+- Install `yay` AUR helper
+
 ## Ansible
 
 ```bash
