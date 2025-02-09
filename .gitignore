@@ -1,4 +1,5 @@
 ansible.log
+collections/
 
 # Compiled Lua sources
 luac.out
