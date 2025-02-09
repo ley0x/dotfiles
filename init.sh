@@ -5,10 +5,9 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
+cd ~
 sudo pacman -S ansible
 
-
-cd ~
 git clone https://github.com/ley0x/dotfiles.git
 cd dotfiles
 

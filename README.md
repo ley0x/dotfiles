@@ -2,27 +2,30 @@
 
 ## Prerequisites
 
+Before running the playbook, you need to install `yay` AUR helper, Ansible and clone the dotfiles from github.
 
-- Install `yay` AUR helper
+The script `init.sh` will handle that for you.
 ```bash
-sudo pacman -S --needed base-devel git
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-```        
-
-- Install Ansible
-```bash
-sudo pacman -S ansible
+chmod +x init.sh
+./init.sh
 ```
 
-- Clone the dotfiles repo
-```bash
-git clone https://github.com/ley0x/dotfiles.git
-cd dotfiles
-```
+> Note: Don't run the script as root, it will ask for your password.
     
 ## Ansible
+
+### Install
+
+- Install packages and dotfiles :
+```bash
+ansible-playbook --ask-become-pass playbooks/main.yaml
+```
+
+> Note: If `bride-utils` wasn't installed before, you need to reboot your system if you want to use docker.
+
+> Note: To install tmux plugins, run `Ctrl+b` then `Shift+i`.
+
+### Utils
 
 ```bash
 ansible-galaxy role install -r requirements.yaml -p ./roles
@@ -32,9 +35,4 @@ ansible-galaxy collection install -r requirements.yaml --force
 - Create an ansible role :
 ```bash
 ansible-galaxy init --init-path ./roles <role>
-```
-
-- Install packages and dotfiles :
-```bash
-ansible-playbook --ask-become-pass playbooks/main.yaml
 ```
