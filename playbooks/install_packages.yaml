@@ -74,3 +74,5 @@
         - deezer-enhanced-bin
         - deemix-git
         - video-downloader
+    - name: "Create a python venv in /opt/venv"
+      

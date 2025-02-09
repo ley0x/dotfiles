@@ -1,0 +1,33 @@
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  collections:
+    - kewlfft.aur
+  vars:
+    linux_distribution: "{{ ansible_distribution | lower }}"
+    linux_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+  tasks:
+    - name: "Create the directory /opt/venv"
+      ansible.builtin.file:
+        path: /opt/venv
+        state: directory
+        mode: '0755'
+        owner: "{{ linux_user }}"
+        group: "{{ linux_user }}"
+    - name: "Create Python virtual environment"
+      command: python -m venv /opt/venv
+      args:
+        creates: /opt/venv/bin/activate
+      become: false
+    - name: "Install python packages"
+      ansible.builtin.pip:
+        name: "{{ item }}"
+        state: present
+        virtualenv: /opt/venv
+      become: false
+      loop:
+        - pynvim
+        - exegol
+        - httpx

@@ -32,3 +32,4 @@
   pip:
     name: pynvim
     state: present
+    virtualenv: /opt/venv
