@@ -1,6 +1,6 @@
 #SPDX-License-Identifier: MIT-0
 ---
-- name: "Install packages"
+- name: "Install LVIM required packages"
   kewlfft.aur.aur:
     name: "{{ item }}"
     state: latest
