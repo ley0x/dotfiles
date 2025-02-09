@@ -1,0 +1,24 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Install packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    #upgrade: yes
+    aur_only: false
+    update_cache: true
+    use: yay
+  become: false
+  loop:
+    - alacritty
+- name: "Create `alacritty` directory if it doesn't exist"
+  ansible.builtin.file:
+    path: "{{ linux_home }}/.config/alacritty"
+    state: directory
+    mode: '0755'
+    owner: "{{ linux_user }}"
+    group: "{{ linux_user }}"
+- name: Install tmux config TEST
+  ansible.builtin.include_role:
+    name: symlink
+  loop: "{{ file_list }}"

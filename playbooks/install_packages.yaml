@@ -1,0 +1,78 @@
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  collections:
+    - kewlfft.aur
+  tasks:
+    - name: "Update the system using pacman -Syu"
+      community.general.pacman:
+        update_cache: true      # -Sy
+        upgrade: true           # -u (upgrade all packages)
+        # noconfirm: true         # --noconfirm (skip prompts)
+        # force: true           # -uu (allow downgrades if needed)
+    - name: "Install base-devel and git (required for AUR builds)"
+      ansible.builtin.pacman:
+        name:
+          - base-devel
+          - git
+        state: present
+    - name: "Install packages"
+      kewlfft.aur.aur:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - vim
+        - xsel
+        - wl-clipboard
+        - python
+        - python-pip
+        # - xclip
+        - git
+        - github-cli
+        - ctop
+        - nvtop
+        - eza
+        - bat
+        - vlc
+        - ranger
+        - gitui
+        - gparted
+        - firefox
+        - steam
+        - discord
+        - signal-desktop
+        - vscodium
+        - obsidian
+        - youtube-music
+        - thunderbird
+        - brave-bin
+        - kdenlive
+        - bitwarden
+        - kdeconnect
+        - timeshift
+        - ttf-cascadia-code-nerd
+        - nodejs
+        - npm
+        # - rofi
+        # - polybar 
+        # - i3
+    - name: "Install AUR packages"
+      kewlfft.aur.aur:
+        name: "{{ item }}"
+        # upgrade: false
+        update_cache: true
+        use: yay
+        aur_only: true
+        state: latest
+      # can't install AUR packages as root
+      become: false
+      loop:
+        - firefox-profile-switcher-connector-bin
+        - deezer-enhanced-bin
+        - deemix-git
+        - video-downloader
+        - asusctl
+        - supergfxctl
+        - fastfetch

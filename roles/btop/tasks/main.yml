@@ -1,0 +1,17 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Install packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    #upgrade: yes
+    aur_only: false
+    update_cache: true
+    use: yay
+  become: false
+  loop:
+    - btop
+- name: Install btop config
+  ansible.builtin.include_role:
+    name: symlink
+  loop: "{{ file_list }}"

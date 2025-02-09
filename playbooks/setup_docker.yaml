@@ -1,0 +1,33 @@
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  collections:
+    - kewlfft.aur
+  tasks:
+    - name: Update the package database
+      pacman:
+        update_cache: yes
+    - name: Install Docker and dependencies
+      pacman:
+        name:
+          - docker
+          - docker-compose
+        state: present
+    - name: Start and enable Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+    - name: Add user to Docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+    - name: Verify Docker installation
+      command: docker --version
+      register: docker_version
+    - name: Display Docker version
+      debug:
+        msg: "Docker version: {{ docker_version.stdout }}"

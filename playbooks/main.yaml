@@ -1,0 +1,4 @@
+- import_playbook: install_packages.yaml
+- import_playbook: setup_venv.yaml
+- import_playbook: install_dotfiles.yaml
+- import_playbook: setup_docker.yaml

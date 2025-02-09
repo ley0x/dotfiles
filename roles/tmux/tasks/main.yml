@@ -1,0 +1,31 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Install packages
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: latest
+    #upgrade: yes
+    aur_only: false
+    update_cache: true
+    use: yay
+  become: false
+  loop:
+    - tmux
+- name: "Ensure ~/.tmux/plugins directory exists"
+  file:
+    path: "{{ linux_home }}/.tmux/plugins"
+    state: directory
+    mode: '0755'
+    owner: "{{ linux_user }}"
+    group: "{{ linux_user }}"
+- name: "Clone tmux plugin manager (tpm)"
+  git:
+    repo: 'https://github.com/tmux-plugins/tpm'
+    dest: '{{ linux_home }}/.tmux/plugins/tpm'
+    clone: yes
+    update: yes
+  become: false
+- name: Install tmux config
+  ansible.builtin.include_role:
+    name: symlink
+  loop: "{{ file_list }}"

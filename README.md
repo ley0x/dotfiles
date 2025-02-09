@@ -1,86 +1,38 @@
 # Dotfiles (ley0x)
 
-## Content
+## Prerequisites
 
-### General
+Before running the playbook, you need to install `yay` AUR helper, Ansible and clone the dotfiles from github.
 
-This repository contains dotfiles for :
-- alacritty
-- zsh (oh-my-zsh)
-- tmux
-- nvim & lvim
-- ranger
-
+The script `init.sh` will handle that for you.
 ```bash
-apt install -y neovim zsh tmux xsel 
-sudo pacman -S wl-clipboard # si on utilise le clipboard de wayland
-sudo pacman -S xclip # sinon
+chmod +x init.sh
+./init.sh
 ```
 
-### i3wm 
+> Note: Don't run the script as root, it will ask for your password.
+    
+## Ansible
 
-- polybar
-- rofi
-- nitrogen
-- picom
-- dunst
-- xautolock
-- maim
-- xdotool
-- nm-applet
-- dex
-- feh
-- playerctl
+### Install
 
+- Install packages and dotfiles :
 ```bash
-cargo install alacritty
+ansible-playbook --ask-become-pass playbooks/main.yaml
 ```
 
-## Installing
+> Note: If `bride-utils` wasn't installed before, you need to reboot your system if you want to use docker.
 
-### ZSH
+> Note: To install tmux plugins, run `Ctrl+b` then `Shift+i`.
 
-- Install ohmyzsh
+### Utils
+
 ```bash
-/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-- ZSH Syntax Highlighting :
-```bash
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+ansible-galaxy role install -r requirements.yaml -p ./roles
+ansible-galaxy collection install -r requirements.yaml --force
 ```
 
-- ZSH Auto suggestions :
+- Create an ansible role :
 ```bash
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-```
-
-- ZSH bat :
-```bash
-git clone https://github.com/fdellwing/zsh-bat.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat
-```
-
-### Tmux
-
-Install tmp for tmux plugins
-
-```bash
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
-
-### Neovim
-
-```bash
-pip install pynvim
-npm i -g neovim
-```
-
-[LunarVim](https://www.lunarvim.org/)
-
-
-### Finally setting up dotfiles
-
-For installing the dotfiles, just execute this commmand in a linux shell :
-
-```bash
-chmod +x ./install.sh && ./install.sh
+ansible-galaxy init --init-path ./roles <role>
 ```
