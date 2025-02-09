@@ -28,6 +28,9 @@
         virtualenv: /opt/venv
       become: false
       loop:
+        - packaging
+        - setuptools
+        - ansible
         - pynvim
         - exegol
         - httpx
