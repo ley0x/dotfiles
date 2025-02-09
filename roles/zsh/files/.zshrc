@@ -15,7 +15,7 @@ COMPLETION_WAITING_DOTS="true"
 # autoload -U promptinit; promptinit
 # prompt pure
 
-plugins=(zsh-bat git fzf docker dotenv archlinux zsh-autosuggestions zsh-syntax-highlighting sudo jsontools)
+plugins=(git fzf docker dotenv archlinux sudo jsontools)
 
 source $ZSH/oh-my-zsh.sh
 

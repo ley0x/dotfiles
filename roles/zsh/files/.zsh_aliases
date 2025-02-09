@@ -2,13 +2,13 @@ alias zshconfig="source ~/.zshrc"
 
 alias history="history 0"
 
-alias ls='eza'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip --color=auto'
 
+alias ls='eza'
 alias ll='ls -l'
 alias la='ls -la'
 alias l='ls -lah'
@@ -51,3 +51,5 @@ alias goworkspaces='cd ~/.exegol/workspaces/'
 alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers' #this will display all lines of your current iptables
 alias iptlistin='sudo /sbin/iptables -L INPUT -n -v --line-numbers' #this will display all your INCOMING rules in iptables
 alias iptlistout='sudo /sbin/iptables -L OUTPUT -n -v --line-numbers' #this will display all your OUTGOING rules in iptables
+
+alias cat="bat"
