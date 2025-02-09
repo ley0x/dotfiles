@@ -24,6 +24,7 @@
     n
     y
     EOF
+  become: false
 - name: "Install lvim config"
   ansible.builtin.include_role:
     name: symlink
