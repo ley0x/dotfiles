@@ -25,6 +25,17 @@ ansible-playbook --ask-become-pass playbooks/main.yaml
 
 > Note: To install tmux plugins, run `Ctrl+b` then `Shift+i`.
 
+### KDE
+
+- Global theme: `Breeze Dark`
+- Colors: `Sweet`
+- Night light: `2500K`
+- Application style: `Breeze`
+- Plasma style: `Breeze`
+- Window decoration: `Breeze`
+- Icons: `Papirus-Dark`
+- Cursor: `Breeze Light` (Size 66)
+
 ### Utils
 
 ```bash
@@ -36,3 +47,4 @@ ansible-galaxy collection install -r requirements.yaml --force
 ```bash
 ansible-galaxy init --init-path ./roles <role>
 ```
+
