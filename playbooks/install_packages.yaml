@@ -56,6 +56,8 @@
         - kdeconnect
         - timeshift
         - ttf-cascadia-code-nerd
+        - nodejs
+        - npm
         # - rofi
         # - polybar 
         # - i3

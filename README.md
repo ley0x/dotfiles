@@ -2,11 +2,6 @@
 
 ## Prerequisites
 
-- Install Ansible
-```bash
-git clone https://github.com/ley0x/dotfiles.git
-cd dotfiles
-```
 
 - Install `yay` AUR helper
 ```bash
@@ -16,6 +11,16 @@ cd yay
 makepkg -si
 ```        
 
+- Install Ansible
+```bash
+sudo pacman -S ansible
+```
+
+- Clone the dotfiles repo
+```bash
+git clone https://github.com/ley0x/dotfiles.git
+cd dotfiles
+```
     
 ## Ansible
 
