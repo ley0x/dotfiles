@@ -18,7 +18,7 @@
     mode: '0755'
     owner: "{{ linux_user }}"
     group: "{{ linux_user }}"
-- name: Install tmux config TEST
+- name: Install alacritty config
   ansible.builtin.include_role:
     name: symlink
   loop: "{{ file_list }}"

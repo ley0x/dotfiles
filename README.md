@@ -2,7 +2,13 @@
 
 ## Prerequisites
 
-Before running the playbook, you need to install `yay` AUR helper, Ansible and clone the dotfiles from github.
+- Clone the repository :
+```bash
+git clone https://github.com/leyou/dotfiles.git ~/.dotfiles
+cd dotfiles
+```
+
+Before running the playbook, you need to install `yay` AUR helper and ansible.
 
 The script `init.sh` will handle that for you.
 ```bash
@@ -16,9 +22,14 @@ chmod +x init.sh
 
 ### Install
 
-- Install packages and dotfiles :
+- Install packages, dotfiles, python and docker :
 ```bash
 ansible-playbook --ask-become-pass playbooks/main.yaml
+```
+
+- Install only dotfiles :
+```bash
+ansible-playbook --ask-become-pass playbooks/install_dotfiles.yaml
 ```
 
 > Note: If `bride-utils` wasn't installed before, you need to reboot your system if you want to use docker.

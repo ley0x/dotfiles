@@ -1,15 +1,28 @@
 #!/bin/bash
 
-sudo pacman -S --needed base-devel git
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
+if [[ $EUID -eq 0 ]]; then
+  echo "Please run as a non-root user"
+  exit 1
+fi
 
-cd ~
-sudo pacman -S ansible
+function install_yay() {
+  cd ~
+  sudo pacman -S --needed base-devel git
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
+  makepkg -si
+}
 
-git clone https://github.com/ley0x/dotfiles.git
-cd dotfiles
+function install_ansible() {
+  cd ~
+  sudo pacman -S --needed ansible
+  cd ~/.dotfiles
+  ansible-galaxy role install -r requirements.yaml -p ./roles
+  ansible-galaxy collection install -r requirements.yaml --force
+}
 
-ansible-galaxy role install -r requirements.yaml -p ./roles
-ansible-galaxy collection install -r requirements.yaml --force
+
+echo "[+] Installing yay"
+install_yay
+echo "[+] Installing ansible"
+install_ansible
