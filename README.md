@@ -5,7 +5,7 @@
 - Clone the repository :
 ```bash
 git clone https://github.com/leyou/dotfiles.git ~/.dotfiles
-cd dotfiles
+cd ~/.dotfiles
 ```
 
 Before running the playbook, you need to install `yay` AUR helper and ansible.
