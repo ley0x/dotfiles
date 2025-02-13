@@ -1,3 +1,61 @@
 linux_distribution: "{{ ansible_distribution | lower }}"
 linux_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
 linux_home: "{{ ansible_env.SUDO_HOME or ansible_env.HOME }}"
+mydotfiles:
+  - ./roles/alacritty
+  - ./roles/zsh
+  - ./roles/tmux
+  - ./roles/btop
+  - ./roles/gitui
+  - ./roles/nvim
+  - ./roles/lvim
+  - ./roles/ranger
+  # - ./roles/i3
+  # - ./roles/polybar
+  # - ./roles/rofi
+packages:
+  - pacman:
+    - vim
+    - xsel
+    - wl-clipboard
+    - python
+    - python-pip
+    # - xclip
+    - git
+    - github-cli
+    - ctop
+    - nvtop
+    - eza
+    - bat
+    - vlc
+    - ranger
+    - gitui
+    - gparted
+    - firefox
+    - steam
+    - discord
+    - signal-desktop
+    - vscodium
+    - obsidian
+    - youtube-music
+    - thunderbird
+    - brave-bin
+    - kdenlive
+    - bitwarden
+    - kdeconnect
+    - timeshift
+    - ttf-cascadia-code-nerd
+    - nodejs
+    - npm
+    - ktorrent
+    # - rofi
+    # - polybar 
+    # - i3
+  - aur:
+    - firefox-profile-switcher-connector-bin
+    - deezer-enhanced-bin
+    - deemix-git
+    - video-downloader
+    - asusctl
+    - supergfxctl
+    - fastfetch

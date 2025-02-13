@@ -3,15 +3,5 @@
   become: true
   connection: local
   gather_facts: true
-  roles:
-    - ./roles/alacritty
-    - ./roles/zsh
-    - ./roles/tmux
-    - ./roles/btop
-    - ./roles/gitui
-    - ./roles/nvim
-    - ./roles/lvim
-    - ./roles/ranger
-    # - ./roles/i3
-    # - ./roles/polybar
-    # - ./roles/rofi
+  roles: 
+   - "{{ mydotfiles }}"

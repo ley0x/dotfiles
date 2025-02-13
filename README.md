@@ -4,7 +4,7 @@
 
 - Clone the repository :
 ```bash
-git clone https://github.com/leyou/dotfiles.git ~/.dotfiles
+git clone https://github.com/ley0x/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 

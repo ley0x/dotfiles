@@ -22,42 +22,7 @@
       kewlfft.aur.aur:
         name: "{{ item }}"
         state: latest
-      loop:
-        - vim
-        - xsel
-        - wl-clipboard
-        - python
-        - python-pip
-        # - xclip
-        - git
-        - github-cli
-        - ctop
-        - nvtop
-        - eza
-        - bat
-        - vlc
-        - ranger
-        - gitui
-        - gparted
-        - firefox
-        - steam
-        - discord
-        - signal-desktop
-        - vscodium
-        - obsidian
-        - youtube-music
-        - thunderbird
-        - brave-bin
-        - kdenlive
-        - bitwarden
-        - kdeconnect
-        - timeshift
-        - ttf-cascadia-code-nerd
-        - nodejs
-        - npm
-        # - rofi
-        # - polybar 
-        # - i3
+      loop: "{{ packages.pacman }}"
     - name: "Install AUR packages"
       kewlfft.aur.aur:
         name: "{{ item }}"
@@ -68,11 +33,4 @@
         state: latest
       # can't install AUR packages as root
       become: false
-      loop:
-        - firefox-profile-switcher-connector-bin
-        - deezer-enhanced-bin
-        - deemix-git
-        - video-downloader
-        - asusctl
-        - supergfxctl
-        - fastfetch
+      loop: "{{ packages.aur }}"
