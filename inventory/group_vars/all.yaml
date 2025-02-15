@@ -14,7 +14,7 @@ mydotfiles:
   # - ./roles/polybar
   # - ./roles/rofi
 packages:
-  - pacman:
+  pacman:
     - vim
     - xsel
     - wl-clipboard
@@ -51,7 +51,7 @@ packages:
     # - rofi
     # - polybar 
     # - i3
-  - aur:
+  aur:
     - firefox-profile-switcher-connector-bin
     - deezer-enhanced-bin
     - deemix-git

@@ -3,5 +3,10 @@
   become: true
   connection: local
   gather_facts: true
-  roles: 
-   - "{{ mydotfiles }}"
+  tasks:
+    - name: "Include roles"
+      include_role:
+        name: "{{ dotfiles_name }}"
+      loop: "{{ mydotfiles }}"
+      loop_control:
+        loop_var: dotfiles_name
