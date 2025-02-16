@@ -45,7 +45,17 @@ alias venv='source /opt/venv/bin/activate'
 alias govenv='cd /opt/venv'
 
 # exegol
-alias goworkspaces='cd ~/.exegol/workspaces/'
+alias ws='cd ~/.exegol/workspaces/'
+
+
+alias xcopy='xsel --clipboard <'
+alias xpaste='xsel --clipboard >'
+alias xshow='xsel --clipboard'
+
+
+alias ip='grc ip'
+alias ipa='ip --brief --color a'
+alias ipr='ip --brief --color r'
 
 #Displaying iptables information the easy way :)
 alias iptlist='sudo /sbin/iptables -L -n -v --line-numbers' #this will display all lines of your current iptables

@@ -4,7 +4,7 @@ linux_home: "{{ ansible_env.SUDO_HOME or ansible_env.HOME }}"
 mydotfiles:
   - ./roles/alacritty
   - ./roles/zsh
-  - ./roles/tmux
+  # - ./roles/tmux
   - ./roles/btop
   - ./roles/gitui
   - ./roles/nvim

@@ -17,14 +17,14 @@
     - rust
     - ripgrep
     - lazygit
-- name: "Install lunarvim"
-  ansible.builtin.shell: |
-    source /opt/venv/bin/activate && LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh) << EOF
-    y
-    n
-    y
-    EOF
-  become: false
+# - name: "Install lunarvim"
+#   ansible.builtin.shell: |
+#     source /opt/venv/bin/activate && LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh) << EOF
+#     y
+#     n
+#     y
+#     EOF
+#   become: false
 - name: "Install lvim config"
   ansible.builtin.include_role:
     name: symlink
