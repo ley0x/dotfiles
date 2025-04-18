@@ -19,12 +19,8 @@ require("user.whichkey")
 require("user.autocommands")
 
 -- LEYO CONFIG
-require("leyo.tailwindcss")
-require("leyo.nvim-ts-autotag")
 require("leyo.move")
 require("leyo.neoscroll")
-require("leyo.trouble")
--- require("leyo.transparent")
 require("leyo.nvim-colorizer")
 require("leyo.tokyonight")
 require("leyo.keymaps")
@@ -42,12 +38,5 @@ require("leyo.devicons")
 
 local status, nvim_lsp = pcall(require, "lspconfig")
 if not status then
-	return
+  return
 end
-
--- TypeScript
-nvim_lsp.tsserver.setup({
-	on_attach = on_attach,
-	filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-	cmd = { "typescript-language-server", "--stdio" },
-})
