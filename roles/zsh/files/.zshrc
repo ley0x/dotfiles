@@ -19,7 +19,6 @@ plugins=(git fzf docker dotenv archlinux sudo jsontools)
 
 source $ZSH/oh-my-zsh.sh
 
-
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
@@ -47,21 +46,27 @@ setopt hist_verify            # show command with history expansion to user befo
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# cheat
+cheat() {
+  curl -s "cheat.sh/$1" | bat --color=always -l md -p
+}
+
+# check-cert
+
+alias check-cert='f() {}; f'
+checkcert() {
+  echo "Checking certificate for $1..."
+  openssl s_client -connect $1:443 -servername $1 -showcerts 2>/dev/null | openssl x509 -noout -issuer -dates -subject -serial 
+}
+
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
 # PATH
 export PATH="$HOME/.npm-global/bin:$HOME/.fly/bin:$HOME/.local/bin:$HOME/bin:$PATH"
-
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -70,7 +75,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-#
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 if [ -e "/opt/venv" ]; then

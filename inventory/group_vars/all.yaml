@@ -4,15 +4,12 @@ linux_home: "{{ ansible_env.SUDO_HOME or ansible_env.HOME }}"
 mydotfiles:
   - ./roles/alacritty
   - ./roles/zsh
-  # - ./roles/tmux
+  - ./roles/tmux
   - ./roles/btop
   - ./roles/gitui
   - ./roles/nvim
   - ./roles/lvim
   - ./roles/ranger
-  # - ./roles/i3
-  # - ./roles/polybar
-  # - ./roles/rofi
 packages:
   pacman:
     - vim
@@ -20,7 +17,6 @@ packages:
     - wl-clipboard
     - python
     - python-pip
-    # - xclip
     - git
     - github-cli
     - ctop
@@ -37,7 +33,6 @@ packages:
     - signal-desktop
     - vscodium
     - obsidian
-    - youtube-music
     - thunderbird
     - brave-bin
     - kdenlive
@@ -48,14 +43,11 @@ packages:
     - nodejs
     - npm
     - ktorrent
-    # - rofi
-    # - polybar 
-    # - i3
+    - podman-compose
   aur:
-    - firefox-profile-switcher-connector-bin
-    - deezer-enhanced-bin
-    - deemix-git
     - video-downloader
     - asusctl
     - supergfxctl
     - fastfetch
+    - podman
+    - zen-browser-bin

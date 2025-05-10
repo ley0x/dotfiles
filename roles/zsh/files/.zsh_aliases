@@ -46,11 +46,9 @@ alias govenv='cd /opt/venv'
 # exegol
 alias ws='cd ~/.exegol/workspaces/'
 
-
 alias xcopy='xsel --clipboard <'
 alias xpaste='xsel --clipboard >'
 alias xshow='xsel --clipboard'
-
 
 alias ip='ip --color=auto'
 alias ipa='ip --brief --color a'
@@ -66,7 +64,6 @@ alias oldcat="/bin/cat"
 
 alias checkip="curl checkip.amazonaws.com"
 
-alias cheat='f(){ curl -s "cheat.sh/$1" | bat --color=always -l md -p ; unset -f f};f'
 
 alias urlencode='python3 -c "import sys; from urllib.parse import quote; print(quote(sys.argv[1], safe=\"\"))"'
 alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.argv[1]))"'
