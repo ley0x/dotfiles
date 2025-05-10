@@ -18,8 +18,8 @@ alias npm="pnpm"
 
 # alias zshconfig="nvim ~/.dotfiles/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias up="docker compose up"
-alias run="docker compose run"
+alias up="podman compose up"
+alias run="podman compose run"
 alias n="nvim"
 
 alias godata="cd /run/media/leyo/DATA/"
