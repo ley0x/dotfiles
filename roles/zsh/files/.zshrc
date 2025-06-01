@@ -44,17 +44,24 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 #setopt share_history         # share command history data
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'bat -l man -p'"
 
 # cheat
-cheat() {
+function cheat() {
   curl -s "cheat.sh/$1" | bat --color=always -l md -p
 }
 
-# check-cert
+function dark() {
+    ln -fs ~/.config/alacritty/dark-theme.toml ~/.config/alacritty/active.toml
+    touch ~/.config/alacritty/alacritty.toml
+}
 
-alias check-cert='f() {}; f'
-checkcert() {
+function light() {
+    ln -fs ~/.config/alacritty/light-theme.toml ~/.config/alacritty/active.toml
+    touch ~/.config/alacritty/alacritty.toml
+}
+
+function checkcert() {
   echo "Checking certificate for $1..."
   openssl s_client -connect $1:443 -servername $1 -showcerts 2>/dev/null | openssl x509 -noout -issuer -dates -subject -serial 
 }
@@ -95,4 +102,5 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export FZF_BASE=/usr/share/fzf
+
 

@@ -14,7 +14,7 @@ alias l='ls -lah'
 
 
 alias docker-compose="docker compose"
-alias npm="pnpm"
+# alias npm="pnpm"
 
 # alias zshconfig="nvim ~/.dotfiles/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
@@ -24,8 +24,8 @@ alias n="nvim"
 
 alias godata="cd /run/media/leyo/DATA/"
 alias goleyo="cd /run/media/leyo/LEYO/"
-alias gohomelab="cd ~/Documents/homelab/"
-alias gosysreptor="cd ~/Documents/sysreptor/sysreptor/deploy/"
+alias gohomelab="cd ~/Documents/podman/homelab/"
+alias gosysreptor="cd ~/Documents/podman/sysreptor/deploy/"
 
 alias godotfiles="cd ~/.dotfiles/"
 alias godev="cd ~/Documents/Dev/"
@@ -67,3 +67,6 @@ alias checkip="curl checkip.amazonaws.com"
 
 alias urlencode='python3 -c "import sys; from urllib.parse import quote; print(quote(sys.argv[1], safe=\"\"))"'
 alias urldecode='python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.argv[1]))"'
+
+alias gopodman="cd ~/.config/containers/systemd/"
+alias gopodman-volumes="cd ~/.local/share/containers/storage/volumes/"

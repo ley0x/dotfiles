@@ -87,7 +87,12 @@ return packer.startup(function(use)
   use({ "nvim-telescope/telescope.nvim" })
 
   -- Treesitter
-  use({ "nvim-treesitter/nvim-treesitter" })
+  use({ 
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    branch = 'main',
+    build = ':TSUpdate'
+   })
 
   use({ "norcalli/nvim-colorizer.lua" })
   use({ "yamatsum/nvim-cursorline" })

@@ -1,35 +1,17 @@
+[general]
+live_config_reload = true
+import = ["~/.config/alacritty/active.toml"]
+
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[colors.normal]
-black   = "#000000"
-red     = "#cd3131"
-green   = "#0dbc79"
-yellow  = "#e0af68"
-blue    = "#2472c8"
-magenta = "#bc3fbc"
-cyan    = "#11a8cd"
-white   = "#e5e5e5"
-
-[colors.bright]
-black   = "#666666"
-red     = "#f14c4c"
-green   = "#23d18b"
-yellow  = "#ff9e64"
-blue    = "#3b8eea"
-magenta = "#d670d6"
-cyan    = "#29b8db"
-white   = "#e5e5e5"
-
-[colors.primary]
-background = "#0d0d0f"
-foreground = "#d4d4d4"
 
 [cursor.style]
 shape = "Block"
 
 [env]
 TERM = "xterm-256color"
+ALACRITTY = "true"
 
 [font]
 size = 11.5
@@ -139,12 +121,10 @@ dynamic_padding = false
 opacity = 0.80
 # Maximized
 startup_mode = "Fullscreen"
+decorations_theme_variant = "None"
 
 [window.padding]
 x = 0
 y = 0
-
-[general]
-live_config_reload = true
 
 [terminal]
