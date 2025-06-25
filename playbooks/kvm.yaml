@@ -1,0 +1,24 @@
+---
+- name: "Installer KVM/QEMU sur localhost"
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  roles:
+    - virtualization
+  
+  post_tasks:
+    - name: "Instructions post-installation"
+      debug:
+        msg: |
+          Installation terminée avec succès !
+          
+          Prochaines étapes :
+          1. Redémarrez votre session pour que les changements de groupe prennent effet
+          2. Lancez virt-manager pour créer vos premières VMs
+          3. Vous pouvez aussi utiliser virsh en ligne de commande
+          
+          Commandes utiles :
+          - virsh list --all           # Lister toutes les VMs
+          - virsh net-list --all       # Lister les réseaux virtuels
+          - virt-manager              # Interface graphique

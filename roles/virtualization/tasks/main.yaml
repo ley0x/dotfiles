@@ -1,0 +1,112 @@
+#SPDX-License-Identifier: MIT-0
+---
+
+- name: "Vérifier si la virtualisation est supportée"
+  shell: "LC_ALL=C lscpu | grep Virtualization"
+  register: virtualization_check
+  changed_when: false
+  failed_when: false
+
+- name: "Afficher le statut de la virtualisation"
+  debug:
+    msg: "Virtualisation détectée: {{ virtualization_check.stdout }}"
+  when: virtualization_check.stdout != ""
+
+- name: "Échec si la virtualisation n'est pas activée"
+  fail:
+    msg: "La virtualisation n'est pas activée sur ce système. Veuillez l'activer dans le BIOS/UEFI."
+  when: virtualization_check.stdout == ""
+
+- name: "Installer les packages KVM/QEMU nécessaires"
+  pacman:
+    name:
+      - qemu-full
+      - virt-manager
+      - virt-viewer
+      - dnsmasq
+      - bridge-utils
+      - libguestfs
+      - ebtables
+      - vde2
+      - openbsd-netcat
+    state: present
+  become: true
+
+- name: "Ajouter l'utilisateur au groupe libvirt"
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: libvirt
+    append: true
+  become: true
+
+- name: "Démarrer et activer le service libvirtd"
+  systemd:
+    name: libvirtd.service
+    state: started
+    enabled: true
+  become: true
+
+- name: "Vérifier le statut du service libvirtd"
+  systemd:
+    name: libvirtd.service
+  register: libvirtd_status
+  become: true
+
+- name: "Afficher le statut de libvirtd"
+  debug:
+    msg: "Service libvirtd actif: {{ libvirtd_status.status.ActiveState }}"
+
+- name: "Configurer libvirtd - unix_sock_group"
+  lineinfile:
+    path: /etc/libvirt/libvirtd.conf
+    regexp: '^#?unix_sock_group\s*='
+    line: 'unix_sock_group = "libvirt"'
+    backup: true
+  become: true
+  notify: restart libvirtd
+
+- name: "Configurer libvirtd - unix_sock_ro_perms"
+  lineinfile:
+    path: /etc/libvirt/libvirtd.conf
+    regexp: '^#?unix_sock_ro_perms\s*='
+    line: 'unix_sock_ro_perms = "0777"'
+    backup: true
+  become: true
+  notify: restart libvirtd
+
+- name: "Configurer libvirtd - unix_sock_rw_perms"
+  lineinfile:
+    path: /etc/libvirt/libvirtd.conf
+    regexp: '^#?unix_sock_rw_perms\s*='
+    line: 'unix_sock_rw_perms = "0770"'
+    backup: true
+  become: true
+  notify: restart libvirtd
+
+- name: "Forcer le redémarrage des handlers si nécessaire"
+  meta: flush_handlers
+
+- name: "Démarrer le réseau par défaut de libvirt"
+  virt_net:
+    command: start
+    name: default
+  become: true
+  ignore_errors: true
+
+- name: "Activer l'autostart du réseau par défaut"
+  virt_net:
+    command: autostart
+    name: default
+  become: true
+  ignore_errors: true
+
+- name: "Vérifier la configuration finale"
+  shell: "virsh net-list --all"
+  register: net_list
+  become: true
+  changed_when: false
+
+- name: "Afficher les réseaux virtuels"
+  debug:
+    msg: "{{ net_list.stdout_lines }}"
+

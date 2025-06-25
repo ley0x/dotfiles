@@ -9,7 +9,7 @@ mydotfiles:
   - ./roles/gitui
   - ./roles/nvim
   - ./roles/lvim
-  - ./roles/ranger
+  # - ./roles/ranger
 packages:
   pacman:
     - vim
@@ -40,14 +40,19 @@ packages:
     - kdeconnect
     - timeshift
     - ttf-cascadia-code-nerd
+    - podman
+    - podman-compose
     - nodejs
     - npm
-    - ktorrent
-    - podman-compose
+    - fastfetch
+    - zen-browser-bin # navigateur
+    - blanket # bruits ambiant et sons
+    - tuba # client mastodon
+    - flameshot # captures d'écran
+    - impression # création clé bootable
   aur:
     - video-downloader
     - asusctl
     - supergfxctl
-    - fastfetch
-    - podman
-    - zen-browser-bin
+    - beekeeper-studio-bin
+    - cursor-bin

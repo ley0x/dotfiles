@@ -1,0 +1,270 @@
+---
+
+# playbook-podman-rootless.yml
+- name: "Installer et configurer Podman rootless sur Arch Linux"
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: true
+  vars:
+    podman_user: "{{ ansible_user_id }}"
+    use_docker_alias: true
+    network_backend: "pasta" # pasta (default in v5+) or slirp4netns
+    
+  tasks:
+    # Installation des packages principaux
+    - name: "Installer Podman et les dépendances principales"
+      pacman:
+        name:
+          - podman
+          - podman-compose
+          - netavark          # Backend réseau par défaut
+          - aardvark-dns      # Résolution DNS entre containers
+          - passt             # Backend réseau rootless (pasta)
+          - buildah           # Pour construire des images
+          - skopeo            # Pour gérer les images
+        state: present
+      become: true
+
+    # Vérification et configuration kernel
+    - name: "Vérifier kernel.unprivileged_userns_clone"
+      command: sysctl kernel.unprivileged_userns_clone
+      register: userns_check
+      changed_when: false
+
+    - name: "Activer kernel.unprivileged_userns_clone si nécessaire"
+      sysctl:
+        name: kernel.unprivileged_userns_clone
+        value: '1'
+        state: present
+        reload: yes
+      become: true
+      when: "'kernel.unprivileged_userns_clone = 0' in userns_check.stdout"
+
+    # Configuration des sub-UIDs et sub-GIDs
+    - name: "Vérifier l'existence des entrées subuid"
+      command: "grep '^{{ podman_user }}:' /etc/subuid"
+      register: subuid_check
+      failed_when: false
+      changed_when: false
+
+    - name: "Créer les entrées subuid/subgid si nécessaires"
+      command: "usermod --add-subuids 100000-165535 --add-subgids 100000-165535 {{ podman_user }}"
+      become: true
+      when: subuid_check.rc != 0
+
+    # Configuration des registries (plus précise selon la doc)
+    - name: "Créer le répertoire de configuration des registries"
+      file:
+        path: /etc/containers/registries.conf.d
+        state: directory
+        mode: '0755'
+      become: true
+
+    - name: "Configurer les registries unqualified-search"
+      copy:
+        dest: /etc/containers/registries.conf.d/10-unqualified-search-registries.conf
+        content: |
+          # Configuration des registries pour recherche non-qualifiée
+          # Permet d'utiliser 'podman pull httpd' au lieu de 'podman pull docker.io/httpd'
+          unqualified-search-registries = ["docker.io", "quay.io", "registry.fedoraproject.org"]
+        mode: '0644'
+      become: true
+
+    # Création des répertoires utilisateur
+    - name: "Créer les répertoires de configuration utilisateur"
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - "{{ ansible_env.HOME }}/.config/containers"
+        - "{{ ansible_env.HOME }}/.local/share/containers"
+
+    # Configuration containers.conf pour l'utilisateur
+    - name: "Configurer containers.conf pour rootless"
+      copy:
+        dest: "{{ ansible_env.HOME }}/.config/containers/containers.conf"
+        content: |
+          [containers]
+          # Configuration pour containers rootless
+          userns = "auto"
+          log_driver = "journald"
+          
+          [engine]
+          # Runtime par défaut
+          runtime = "crun"
+          
+          # Configuration réseau
+          [network]
+          # Backend réseau par défaut pour rootless
+          default_rootless_network_cmd = "{{ network_backend }}"
+          {% if network_backend == "pasta" %}
+          # Configuration pasta pour mitiquer les problèmes de connectivité
+          # pasta_options = ["-a", "10.0.2.0", "-n", "24", "-g", "10.0.2.2", "--dns-forward", "10.0.2.3"]
+          {% endif %}
+        mode: '0644'
+
+    # Configuration storage pour utiliser les overlays natifs
+    - name: "Configurer storage.conf pour overlays natifs"
+      copy:
+        dest: "{{ ansible_env.HOME }}/.config/containers/storage.conf"
+        content: |
+          [storage]
+          driver = "overlay"
+          runroot = "{{ ansible_env.HOME }}/.local/share/containers/storage"
+          graphroot = "{{ ansible_env.HOME }}/.local/share/containers/storage"
+          
+          [storage.options]
+          additionalimagestores = []
+          
+          [storage.options.overlay]
+          # Utiliser les overlays natifs (performance améliorée)
+          # mount_program non défini = overlays natifs
+          # mount_program = "/usr/bin/fuse-overlayfs"  # Fallback si nécessaire
+          mountopt = "nodev"
+        mode: '0644'
+
+    # Migration système si nécessaire
+    - name: "Exécuter la migration système pour appliquer les changements"
+      command: podman system migrate
+      register: migrate_result
+      changed_when: "'No migration required' not in migrate_result.stderr"
+      failed_when: false
+
+    # Configuration des services utilisateur (sans daemon)
+    - name: "Activer lingering pour l'utilisateur"
+      command: "loginctl enable-linger {{ podman_user }}"
+      become: true
+      changed_when: false
+
+    # Tests et vérifications
+    - name: "Vérifier la configuration Podman"
+      command: podman info --format json
+      register: podman_info
+      changed_when: false
+
+    - name: "Parser les informations Podman"
+      set_fact:
+        podman_config: "{{ podman_info.stdout | from_json }}"
+
+    - name: "Vérifier le mode rootless"
+      assert:
+        that:
+          - podman_config.host.security.rootless == true
+        fail_msg: "Podman ne fonctionne pas en mode rootless"
+        success_msg: "✅ Podman configuré en mode rootless"
+
+    - name: "Vérifier les overlays natifs"
+      command: podman info | grep -i overlay
+      register: overlay_check
+      changed_when: false
+
+    - name: "Afficher la configuration overlay"
+      debug:
+        msg: "{{ overlay_check.stdout_lines }}"
+
+    - name: "Test de fonctionnement basique"
+      command: podman run --rm alpine:latest echo "Test Podman réussi"
+      register: basic_test
+      changed_when: false
+
+    # Configuration des alias Docker si demandé
+    - name: "Créer les alias Docker dans .bashrc"
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: "{{ item }}"
+        create: yes
+      loop:
+        - "# Alias Podman -> Docker"
+        - "alias docker='podman'"
+        - "alias docker-compose='podman-compose'"
+      when: use_docker_alias
+
+    # Script de test avancé
+    - name: "Créer un script de test complet"
+      copy:
+        dest: "{{ ansible_env.HOME }}/test-podman-advanced.sh"
+        content: |
+          #!/bin/bash
+          set -e
+          
+          echo "🔍 Test avancé de Podman rootless"
+          echo "=================================="
+          
+          echo "📊 Configuration système :"
+          echo "- Mode rootless: $(podman info --format '{{.Host.Security.Rootless}}')"
+          echo "- Overlay driver: $(podman info --format '{{.Store.GraphDriverName}}')"
+          echo "- Native overlays: $(podman info | grep 'Native Overlay Diff' || echo 'N/A')"
+          echo "- Network backend: $(podman info --format '{{.Host.NetworkBackend}}')"
+          
+          echo -e "\n🧪 Tests fonctionnels :"
+          
+          # Test basique
+          echo "1. Test container basique..."
+          podman run --rm alpine:latest echo "✅ Container Alpine OK"
+          
+          # Test réseau
+          echo "2. Test réseau..."
+          podman run --rm alpine:latest nslookup google.com > /dev/null && echo "✅ Réseau OK"
+          
+          # Test volumes
+          echo "3. Test volumes..."
+          podman run --rm -v /tmp:/test alpine:latest ls /test > /dev/null && echo "✅ Volumes OK"
+          
+          # Test construction d'image
+          echo "4. Test build d'image..."
+          mkdir -p /tmp/podman-test
+          cat > /tmp/podman-test/Dockerfile << 'EOF'
+          FROM alpine:latest
+          RUN echo "Test build" > /test.txt
+          CMD cat /test.txt
+          EOF
+          podman build -t test-image /tmp/podman-test > /dev/null && echo "✅ Build OK"
+          podman run --rm test-image | grep -q "Test build" && echo "✅ Image custom OK"
+          podman rmi test-image > /dev/null
+          rm -rf /tmp/podman-test
+          
+          # Test podman-compose
+          echo "5. Test podman-compose..."
+          podman-compose --version > /dev/null && echo "✅ podman-compose OK"
+          
+          echo -e "\n🎉 Tous les tests sont passés avec succès !"
+          echo "📋 Commandes utiles :"
+          echo "  podman ps                 # Lister containers actifs"
+          echo "  podman images             # Lister images"
+          echo "  podman search <terme>     # Chercher images"
+          echo "  podman-compose up         # Docker-compose équivalent"
+        mode: '0755'
+
+    # Informations finales
+    - name: "Résumé de l'installation"
+      debug:
+        msg: |
+          🎉 Installation Podman rootless terminée avec succès !
+          
+          📋 Configuration :
+          - Mode rootless: {{ podman_config.host.security.rootless }}
+          - Driver storage: {{ podman_config.store.graphDriverName }}
+          - Backend réseau: {{ network_backend }}
+          - Registries: Docker.io, Quay.io, Registry.fedoraproject.org
+          {% if use_docker_alias %}
+          - Alias Docker activés
+          {% endif %}
+          
+          🔧 Fichiers de configuration :
+          - Global: /etc/containers/
+          - Utilisateur: ~/.config/containers/
+          - Storage: ~/.local/share/containers/
+          
+          🚀 Prêt à utiliser :
+          - podman run hello-world
+          - podman search nginx
+          - podman-compose up
+          {% if use_docker_alias %}
+          - docker run hello-world (alias)
+          {% endif %}
+          
+          🧪 Lancez le test complet : ./test-podman-advanced.sh
+          
+          📚 Documentation : man podman

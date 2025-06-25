@@ -1,0 +1,17 @@
+galaxy_info:
+  author: "ley0x"
+  description: "Rôle Ansible pour installer et configurer KVM/QEMU avec virt-manager"
+  company: ""
+  license: MIT
+  min_ansible_version: "2.9"
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+  galaxy_tags:
+    - virtualization
+    - kvm
+    - qemu
+    - libvirt
+
+dependencies: []

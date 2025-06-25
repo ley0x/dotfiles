@@ -13,11 +13,13 @@
         mode: '0755'
         owner: "{{ linux_user }}"
         group: "{{ linux_user }}"
+
     - name: "Create Python virtual environment"
       command: python -m venv /opt/venv
       args:
         creates: /opt/venv/bin/activate
       become: false
+
     - name: "Install python packages"
       ansible.builtin.pip:
         name: "{{ item }}"
@@ -31,3 +33,4 @@
         - pynvim
         - exegol
         - httpx
+        - uv
